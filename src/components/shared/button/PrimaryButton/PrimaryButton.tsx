@@ -1,5 +1,4 @@
 'use client';
-'use client';
 import React, { useState } from "react";
 import Modal from "@/components/shared/Modal/Modal";
 
@@ -37,7 +36,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
         <Modal onClose={() => setOpen(false)}>
           <h2 className="text-xl font-bold mb-4">Enter Customer&apos;s CIF Number</h2>
           <input
-            type="text"
+            type="number"
             placeholder="Enter Mobile No/ LAN Number/ Customer ID"
             className="border rounded px-3 py-2 w-full mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />

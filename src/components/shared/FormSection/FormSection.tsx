@@ -55,11 +55,11 @@ const FormSection: React.FC<FormSectionProps> = ({ inputs = [], service, onSubmi
     };
 
     return (
-        <div className="bg-white rounded shadow p-6 w-full max-w-2xl mx-auto mt-8">
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="flex flex-wrap gap-4">
+        <div className="w-full p-6">
+            <form onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {inputs.map((input) => (
-                        <div key={input.name} className="flex flex-col flex-1 min-w-[180px]">
+                        <div key={input.name} className="flex flex-col">
                             <label htmlFor={input.name} className="mb-1 font-medium">
                                 {input.label}
                             </label>
@@ -75,9 +75,11 @@ const FormSection: React.FC<FormSectionProps> = ({ inputs = [], service, onSubmi
                             />
                         </div>
                     ))}
+                </div>
+                <div className="mt-4 text-right">
                     <button
                         type="submit"
-                        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mt-6"
+                        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                         disabled={loading}
                     >
                         {loading ? "Submitting..." : submitLabel}

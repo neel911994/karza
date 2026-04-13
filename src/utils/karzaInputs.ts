@@ -74,5 +74,67 @@ export const karzaInputs: Record<string, { inputs: FormInput[]; serviceName: str
     ],
     serviceName: "itrvAuthentication"
   },
-  // Add more menus as needed
+  icsi_membership: {
+    inputs: [
+      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter ICSI membership number" }, 
+      { name: "cp", label: "CP (Certifcate of Practise no)", type: "text", placeholder: "Enter CP number" }, 
+    ],
+    serviceName: "icsiMembershipService"
+  },
+  icwai_membership: {
+    inputs: [
+      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter ICWAI membership number" },
+    ],
+    serviceName: "icwaiMembershipService"
+  },
+  mci_membership: {
+    inputs: [
+      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter MCI membership number" },
+      { name : "registrationYear", label: "Registration Year", type: "text", placeholder: "Enter registration year" },
+      {name: "medicalCouncil", label: "Medical Council", type: "text", placeholder: "Enter medical council name" },
+    ],
+    serviceName: "mciMembershipService"
+  },
+  mca:{
+    inputs: [
+      { name: "cin", label: "CIN (Company Identification Number)", type: "text", placeholder: "Enter CIN" },
+    ],
+    serviceName: "mcaService"
+  },
+mca_llpin: {
+    inputs: [
+      { name: "llpin", label: "LLPIN (Limited Liability Partnership Identification Number)", type: "text", placeholder: "Enter LLPIN" },
+    ],
+    serviceName: "mcaLlpinService"
+  },
+  mca_fcrn: {
+    inputs: [
+      { name: "fcrn", label: "FCRN (Foreign Company Registration Number)", type: "text", placeholder: "Enter FCRN" },
+    ],
+    serviceName: "mcaFcrnService"
+  },
+  mca_fllpin: {
+    inputs: [
+      { name: "fllpin", label: "FLLPIN (Foreign Limited Liability Partnership Identification Number)", type: "text", placeholder: "Enter FLLPIN" },
+    ],
+    serviceName: "mcaFllpinService"
+  },
+  gstin_pan: {
+    inputs: [
+      { name: "pan", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
+    ],
+    serviceName: "gstnService"
+  },
+  gsp_gstin: {
+    inputs: [
+      { name: "gstin", label: "GSTIN (GST Identification Number)", type: "text", placeholder: "Enter GSTIN" },
+    ],
+    serviceName: "gspGstinService"
+  },
+  gsp_gstin_returns: {
+    inputs: [
+      { name: "gstin", label: "GSTIN (GST Identification Number)", type: "text", placeholder: "Enter GSTIN" },
+    ],
+    serviceName: "gspGstinReturnsService"
+  }
 };

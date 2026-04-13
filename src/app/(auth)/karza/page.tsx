@@ -1,7 +1,5 @@
-import Karza from "@/components/pageKarza/Karza";
+import { redirect } from "next/navigation";
 
 export default function KarzaPage() {
-    return (
-        <Karza />
-    );
+    redirect("/karza/aml");
 }
