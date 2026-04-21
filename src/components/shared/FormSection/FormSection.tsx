@@ -1,5 +1,7 @@
 'use client';
 import React, { useState } from "react";
+import { callKarzaService } from '@/services/karzaService';
+import { renderResponseByService } from './formResponse';
 
 export interface FormInput {
     name: string;
@@ -7,9 +9,6 @@ export interface FormInput {
     type: "text" | "date" | "number";
     placeholder?: string;
 }
-
-
-import { apiService } from '@/services/apiService';
 
 interface FormSectionProps {
     inputs?: FormInput[];
@@ -23,7 +22,7 @@ const FormSection: React.FC<FormSectionProps> = ({ inputs = [], service, onSubmi
     const [formValues, setFormValues] = useState<Record<string, string>>(() =>
         Object.fromEntries((inputs || []).map((input) => [input.name, ""]))
     );
-    const [response, setResponse] = useState<React.ReactNode>(null);
+    const [apiResponse, setApiResponse] = useState<any>(null);
     const [loading, setLoading] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,21 +35,17 @@ const FormSection: React.FC<FormSectionProps> = ({ inputs = [], service, onSubmi
         let res;
         if (onSubmit) {
             res = await onSubmit(formValues);
-        } else if (service && (apiService as any)[service]) {
-            // Call the apiService method dynamically with all form values as arguments
-            // This assumes the order of inputs matches the API signature
-            console.log(formValues,"form values in form section");
-            const args = inputs.map(input => formValues[input.name]);
-            console.log(args,"args in form section");
-           const res = await apiService.panStatusCheck(formValues.pan, formValues.dob, formValues.name, formValues.fathername).then((data) => {}).catch((err) => {
-            console.error("API call failed", err);
-            return <div className="text-red-500">API call failed: {err.message}</div>;
-           });
-           return <div className="text-green-500">API call successful</div>;
+            setApiResponse(res);
+        } else if (service) {
+            try {
+                const apiRes = await callKarzaService(service, formValues);
+                setApiResponse(apiRes);
+            } catch (err) {
+                setApiResponse({ error: String(err) });
+            }
         } else {
-            res = <div className="text-red-500">No service or onSubmit handler provided.</div>;
+            setApiResponse({ error: "No service or onSubmit handler provided." });
         }
-        setResponse(res);
         setLoading(false);
     };
 
@@ -87,7 +82,10 @@ const FormSection: React.FC<FormSectionProps> = ({ inputs = [], service, onSubmi
                 </div>
             </form>
             <div className="mt-8 min-h-[60px]">
-                {response}
+                {apiResponse?.error
+                    ? <div className="text-red-500">{apiResponse.error}</div>
+                    : renderResponseByService(service, apiResponse)
+                }
             </div>
         </div>
     );

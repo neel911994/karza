@@ -13,17 +13,18 @@ export const karzaInputs: Record<string, { inputs: FormInput[]; serviceName: str
   },
   dl: {
     inputs: [
-      { name: "dlNumber", label: "DL Number", type: "text", placeholder: "Enter DL number" },
+      { name: "dlNo", label: "DL Number", type: "text", placeholder: "Enter DL number" },
       { name: "dob", label: "Date of Birth", type: "date" },
     ],
     serviceName: "drivingLicenseAuthentication"
   },
   passport: {
     inputs: [
-      { name: "passportNumber", label: "Passport File Number", type: "text", placeholder: "Enter passport number" },
-      { name: "fullName", label: "Complete Name of Passport Holder", type: "text", placeholder: "Enter full name" },
+      { name: "passportNo", label: "Passport Number", type: "text", placeholder: "Enter passport number" },
+      { name: "name", label: "Complete Name of Passport Holder", type: "text", placeholder: "Enter full name" },
       { name: "dob", label: "Date of Birth", type: "date" },
-      { name: "dateOfIssue", label: "Date of Issue", type: "date" },
+      { name: "doi", label: "Date of Issue", type: "date" },
+      { name: "fileNo", label: "File Number", type: "text", placeholder: "Enter file number" },
     ],
     serviceName: "passportVerification"
   },
@@ -32,7 +33,7 @@ export const karzaInputs: Record<string, { inputs: FormInput[]; serviceName: str
       { name: "employerName", label: "Employer Name", type: "text", placeholder: "Enter employer name" },
       { name: "employeeName", label: "Employee Name", type: "text", placeholder: "Enter employee name" },
       { name: "mobile", label: "Mobile Number", type: "text", placeholder: "Enter mobile number" },  
-      { name: "email", label: "Email Address", type: "text", placeholder: "Enter email address" },
+      { name: "emailId", label: "Email Address", type: "text", placeholder: "Enter email address" },
     ],
     serviceName: "employementVerification"
   },
@@ -46,60 +47,60 @@ export const karzaInputs: Record<string, { inputs: FormInput[]; serviceName: str
   },
   shop: {
     inputs: [
-      { name: "registrationNumber", label: "Registration Number", type: "text", placeholder: "Enter registration number" },
+      { name: "regNo", label: "Registration Number", type: "text", placeholder: "Enter registration number" },
       { name: "areaCode", label: "Area Code", type: "text", placeholder: "Enter area code" },
     ],
     serviceName: "shopandEstablishment"
   },
   ca_membership: {
     inputs: [
-      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter CA membership number" },
+      { name: "membership_no", label: "Membership Number", type: "text", placeholder: "Enter CA membership number" },
     ],
     serviceName: "camembershipService"
   },
   form_16: {
     inputs: [
-      { name: "panNumber", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
-      { name: "tanNumber", label: "TAN Number", type: "text", placeholder: "Enter TAN Number" },
-      { name: "certificateNumber", label: "Form 16 Certificate Number", type: "text", placeholder: "Enter certificate number" },
-      { name: "fiscalYear", label: "Fiscal Year corresponding to form 16", type: "text", placeholder: "Enter fiscal year" },
-      { name: "amountDeducted", label: "Amount Deducted", type: "text", placeholder: "Enter amount deducted" },
+      { name: "pan", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
+      { name: "tan", label: "TAN Number", type: "text", placeholder: "Enter TAN Number" },
+      { name: "cert_no", label: "Form 16 Certificate Number", type: "text", placeholder: "Enter certificate number" },
+      { name: "fiscal_year", label: "Fiscal Year corresponding to form 16", type: "text", placeholder: "Enter fiscal year" },
+      { name: "amount", label: "Amount Deducted", type: "text", placeholder: "Enter amount deducted" },
     ],
     serviceName: "form16Authentication"
   },
   itr: {
     inputs: [
-      { name: "panNumber", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
-      { name: "ackNumber", label: "15 digit ITR-V Acknowledgement Number", type: "text", placeholder: "Enter Ack number" },
+      { name: "pan", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
+      { name: "ack", label: "15 digit ITR-V Acknowledgement Number", type: "text", placeholder: "Enter Ack number" },
     ],
     serviceName: "itrvAuthentication"
   },
   icsi_membership: {
     inputs: [
-      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter ICSI membership number" }, 
-      { name: "cp", label: "CP (Certifcate of Practise no)", type: "text", placeholder: "Enter CP number" }, 
+      { name: "membershipNo", label: "Membership Number", type: "text", placeholder: "Enter ICSI membership number" }, 
+      { name: "cpNo", label: "CP (Certifcate of Practise no)", type: "text", placeholder: "Enter CP number" }, 
     ],
     serviceName: "icsiMembershipService"
   },
   icwai_membership: {
     inputs: [
-      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter ICWAI membership number" },
+      { name: "membership_no", label: "Membership Number", type: "text", placeholder: "Enter ICWAI membership number" },
     ],
     serviceName: "icwaiMembershipService"
   },
   mci_membership: {
     inputs: [
-      { name: "membershipNumber", label: "Membership Number", type: "text", placeholder: "Enter MCI membership number" },
-      { name : "registrationYear", label: "Registration Year", type: "text", placeholder: "Enter registration year" },
-      {name: "medicalCouncil", label: "Medical Council", type: "text", placeholder: "Enter medical council name" },
+      { name: "registration_no", label: "Membership Number", type: "text", placeholder: "Enter MCI membership number" },
+      { name : "year_of_reg", label: "Registration Year", type: "text", placeholder: "Enter registration year" },
+      {name: "medical_council", label: "Medical Council", type: "text", placeholder: "Enter medical council name" },
     ],
-    serviceName: "mciMembershipService"
+    serviceName: "mciMembershipAuthentication"
   },
   mca:{
     inputs: [
       { name: "cin", label: "CIN (Company Identification Number)", type: "text", placeholder: "Enter CIN" },
     ],
-    serviceName: "mcaService"
+    serviceName: "mcaMasterDataFetch"
   },
 mca_llpin: {
     inputs: [
@@ -123,18 +124,18 @@ mca_llpin: {
     inputs: [
       { name: "pan", label: "PAN Number", type: "text", placeholder: "Enter PAN number" },
     ],
-    serviceName: "gstnService"
+    serviceName: "gstinSearchPan"
   },
   gsp_gstin: {
     inputs: [
       { name: "gstin", label: "GSTIN (GST Identification Number)", type: "text", placeholder: "Enter GSTIN" },
     ],
-    serviceName: "gspGstinService"
+    serviceName: "gspGstinAuthentication"
   },
   gsp_gstin_returns: {
     inputs: [
       { name: "gstin", label: "GSTIN (GST Identification Number)", type: "text", placeholder: "Enter GSTIN" },
     ],
-    serviceName: "gspGstinReturnsService"
+    serviceName: "gspgstReturnFiling"
   }
 };
