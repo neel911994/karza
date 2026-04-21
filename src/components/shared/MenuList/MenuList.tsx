@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useNavigation } from "@/context/NavigationContext";
+import { useRef, useState, useEffect } from "react";
 
 const menuItems = [
     { href: "/karza/pan", label: "PAN" },
@@ -29,10 +30,25 @@ const menuItems = [
 export default function MenuList() {
     const pathname = usePathname();
     const { startLoading } = useNavigation();
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [showMore, setShowMore] = useState(true);
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+        const check = () => setShowMore(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+        check();
+        el.addEventListener("scroll", check);
+        window.addEventListener("resize", check);
+        return () => {
+            el.removeEventListener("scroll", check);
+            window.removeEventListener("resize", check);
+        };
+    }, []);
 
     return (
-        <div className="bg-[#5a6066] text-white p-0 mt-4 w-full">
-            <div className="overflow-x-auto w-full">
+        <div className="bg-[#5a6066] text-white p-0 mt-4 w-full relative">
+            <div ref={scrollRef} className="overflow-x-auto w-full">
                 <ul className="inline-flex space-x-4 min-w-max px-4 py-2" style={{ whiteSpace: 'nowrap' }}>
                     {menuItems.map(({ href, label }) => (
                         <li key={href}>
@@ -47,6 +63,14 @@ export default function MenuList() {
                     ))}
                 </ul>
             </div>
+            {showMore && (
+                <div className="absolute right-0 top-0 bottom-0 flex items-center pointer-events-none">
+                    <div className="w-16 h-full bg-gradient-to-r from-transparent to-[#5a6066]" />
+                    <span className="pr-3 text-white font-bold tracking-widest bg-[#5a6066] h-full flex items-center">
+                        ...
+                    </span>
+                </div>
+            )}
         </div>
     );
 }
