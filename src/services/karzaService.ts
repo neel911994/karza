@@ -25,26 +25,35 @@ const serviceArgMap: Record<string, string[]> = {
 	epfauthenticationService: ['uan', 'needKarza'],
 };
 
-// Helper to format date fields to DD/MM/YYYY
-function formatDate(val: string) {
+// Helper to format date fields to DD/MM/YYYY or DD-MM-YYYY
+function formatDate(val: string, format: 'slash' | 'dash' = 'slash') {
 	if (typeof val === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(val)) {
 		const [year, month, day] = val.split('-');
-		return `${day}/${month}/${year}`;
+		return format === 'dash' ? `${day}-${month}-${year}` : `${day}/${month}/${year}`;
 	}
 	return val;
 }
+
+// Map service to date format
+const serviceDateFormat: Record<string, 'slash' | 'dash'> = {
+	panStatusCheck: 'slash',
+	drivingLicenseAuthentication: 'dash',
+	passportVerification:'slash',
+};
 
 export async function callKarzaService(serviceName: string, formData: Record<string, any>) {
 	if (!apiService[serviceName] || !serviceArgMap[serviceName]) {
 		throw new Error('Unknown or unsupported service: ' + serviceName);
 	}
+	// Determine date format for this service
+	const dateFormat = serviceDateFormat[serviceName] || 'slash';
 	// Prepare arguments in the correct order
 	const argKeys = serviceArgMap[serviceName];
 	const args = argKeys.map(key => {
 		let val = formData[key] ?? '';
 		// Format date fields
-		if (key.toLowerCase().includes('date') || key.toLowerCase().includes('dob')|| key.toLowerCase().includes('doi')) {
-			val = formatDate(val);
+		if (key.toLowerCase().includes('date') || key.toLowerCase().includes('dob') || key.toLowerCase().includes('doi')) {
+			val = formatDate(val, dateFormat);
 		}
 		// Default consent/needKarza if required
 		if (key === 'consent' && !val) return 'Y';

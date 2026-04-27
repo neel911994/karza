@@ -51,25 +51,37 @@ export function renderResponseByService(service: string | undefined, apiRes: Api
             return renderTable(rows);
         },
         drivingLicenseAuthentication: (apiRes) => {
+            const imgBase64 = apiRes?.result?.img;
             const rows = [
                 { label: "Name", value: String(apiRes?.result?.name ?? "N/A") },
-                { label: "Image", value: String(apiRes?.result?.img ?? "N/A") },
+                {
+                    label: "Image",
+                    value: imgBase64 ? (
+                        <img
+                            src={`data:image/jpg;base64,${imgBase64}`}
+                            alt="Driving License"
+                            style={{ maxWidth: 200, maxHeight: 120, border: '1px solid #ccc', borderRadius: 4 }}
+                        />
+                    ) : (
+                        "N/A"
+                    ),
+                },
                 { label: "Blood group", value: String(apiRes?.result?.bloodGroup ?? "N/A") },
                 { label: "Date of Birth ", value: String(apiRes?.result?.dob ?? "N/A") },
                 { label: "Date of Issue", value: String(apiRes?.result?.issueDate ?? "N/A") },
                 { label: "Relative", value: String(apiRes?.result?.['father/husband'] ?? "N/A") },
             ];
-            const licenseValidityRows =[
-                { label: "Is DL Valid?", value: String(apiRes?.result?.isDLValid ?? "N/A") },
-                { label: "DL Validity Start Date", value: String(apiRes?.result?.dlValidity?.startDate ?? "N/A") },
-                { label: "DL Validity End Date", value: String(apiRes?.result?.dlValidity?.endDate ?? "N/A") },
-            ]
-            return  <>
-            {renderTable(rows)}
-            <div className="my-4" />
-            <div><h4>License Validity</h4></div>
-            {renderTable(licenseValidityRows)}
-        </>;
+            const licenseValidityRows = [
+                { label: "Transport", value: String(apiRes?.result?.validity?.transport ?? "N/A") },
+                { label: "Non Transport", value: String(apiRes?.result?.validity?.nonTransport ?? "N/A") },
+                { label: "Address", value: String(apiRes?.result?.address[0]?.completeAddress)}
+            ];
+            return <>
+                {renderTable(rows)}
+                <div className="my-4" />
+                <div><h4>License Validity</h4></div>
+                {renderTable(licenseValidityRows)}
+            </>;
         }
         // Add more handlers as needed
     };
